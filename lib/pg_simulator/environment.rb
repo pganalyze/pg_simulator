@@ -7,7 +7,7 @@ module PgSimulator
       @dbname = "pg_simulator_%s" % SecureRandom.uuid.gsub('-', '_')
       @otherdb = {dbname: otherconn.db, host: otherconn.host, port: otherconn.port, user: otherconn.user}
       
-      otherconn.exec_params("CREATE DATABASE %s" % otherconn.quote_ident(@dbname))
+      otherconn.exec("CREATE DATABASE %s" % otherconn.quote_ident(@dbname))
       @conn = PG.connect(@otherdb.merge(dbname: @dbname))
       
       create_schema!(schema_hsh)
@@ -99,7 +99,8 @@ module PgSimulator
     def destroy
       @conn.close
       otherconn = PG.connect(@otherdb)
-      otherconn.exec_params("DROP DATABASE %s" % otherconn.quote_ident(@dbname))
+      otherconn.exec("DROP DATABASE %s" % otherconn.quote_ident(@dbname))
+      otherconn.close
     end
   end
 end
