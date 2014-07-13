@@ -92,6 +92,10 @@ module PgSimulator
       JSON.parse(res[0]["QUERY PLAN"])
     end
     
+    def exec(query)
+      @conn.exec(query)
+    end
+    
     def destroy
       @conn.close
       otherconn = PG.connect(@otherdb)
