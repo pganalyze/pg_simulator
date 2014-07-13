@@ -80,6 +80,8 @@ describe PgSimulator do
 
     plan[0]["Plan"].delete("Startup Cost")
     plan[0]["Plan"].delete("Total Cost")
+    plan[0]["Plan"]["Plans"].last.delete("Startup Cost")
+    plan[0]["Plan"]["Plans"].last.delete("Total Cost")
     expect(plan).to eq [{"Plan"=>
      {"Node Type"=>"Aggregate",
       "Strategy"=>"Hashed",
@@ -127,8 +129,6 @@ describe PgSimulator do
          "Relation Name"=>"query_snapshot_hourlies",
          "Schema"=>"public",
          "Alias"=>"query_snapshot_hourlies",
-         "Startup Cost"=>0.13, # FIXME: Actually 1938.13
-         "Total Cost"=>7.04, # FIXME: Actually 84845.66
          "Plan Rows"=>1, # FIXME: Actually 14862
          "Plan Width"=>4,
          "Output"=>
