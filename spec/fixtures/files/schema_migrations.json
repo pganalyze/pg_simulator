@@ -1,0 +1,94 @@
+[{
+  "schema_name": "public",
+  "table_name": "schema_migrations",
+  "size_bytes": 8192,
+  "columns": [
+      {
+          "data_type": "character varying(255)",
+          "default_value": null,
+          "name": "version",
+          "not_null": true,
+          "position": 1,
+          "stats": {
+              "stadistinct": -1.0,
+              "stainherit": false,
+              "stakind1": 2,
+              "stakind2": 3,
+              "stakind3": 0,
+              "stakind4": 0,
+              "stakind5": 0,
+              "stanullfrac": 0.0,
+              "stanumbers1": null,
+              "stanumbers2": [
+                  0.9998862147331238
+              ],
+              "stanumbers3": null,
+              "stanumbers4": null,
+              "stanumbers5": null,
+              "staop1": 664,
+              "staop2": 664,
+              "staop3": 0,
+              "staop4": 0,
+              "staop5": 0,
+              "stavalues1": "{20121115104253,20121115104424,20121115144719,20121222152557,20121222210347,20130129121255,20130129163021,20130129175021,20130129180846,20130130131612,20130208115344,20130217171132,20130222164352,20130305141105,20130404094832,20130429153359,20130701150108,20130706202400,20130706202500,20130706202505,20130708143700,20130709161306,20130711183514,20130711222622,20130712105339,20130712132134,20130712133141,20130715113913,20130715142438,20130717145254,20130722110221,20130723122512,20130723171211,20130729113447,20130729113538,20130730123052,20130730155704,20130806131104,20130807105717,20131002021856,20131002022000,20131004195839,20131010132001,20131010161810,20131011085017,20131022131205,20131106165728,20131119124856,20131119183412,20131119190452,20131122130120,20131122145354,20131204142137,20131205121725,20131215145759,20140121142701,20140121151915,20140121152823,20140122115318,20140122120556,20140123130402,20140416201844,20140512155807,20140512202303,20140512203114,20140512232316,20140515100131,20140515225601,20140516114901,20140525110258,20140531091720,20140616140006,20140624113711,20140705193127,20140707123035}",
+              "stavalues2": null,
+              "stavalues3": null,
+              "stavalues4": null,
+              "stavalues5": null,
+              "stawidth": 15
+          }
+      }
+  ],
+  "indices": [
+      {
+          "columns": [
+              1
+          ],
+          "constraint_def": null,
+          "idx_blks_hit": 0,
+          "idx_blks_read": 0,
+          "idx_scan": 0,
+          "idx_tup_fetch": 0,
+          "idx_tup_read": 0,
+          "index_def": "CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version)",
+          "is_primary": false,
+          "is_unique": true,
+          "is_valid": true,
+          "name": "unique_schema_migrations",
+          "size_bytes": 16384,
+          "wasted_bytes": 474718208.0
+      }
+  ],
+  "stats": {
+      "analyze_count": 1,
+      "autoanalyze_count": 0,
+      "autovacuum_count": 0,
+      "heap_blks_hit": 1,
+      "heap_blks_read": 1,
+      "idx_blks_hit": 0,
+      "idx_blks_read": 1,
+      "idx_scan": 0,
+      "idx_tup_fetch": 0,
+      "last_analyze": "2014-07-13 11:24:47.780358+00:00",
+      "last_autoanalyze": null,
+      "last_autovacuum": null,
+      "last_vacuum": null,
+      "n_dead_tup": 4,
+      "n_live_tup": 75,
+      "n_tup_del": 0,
+      "n_tup_hot_upd": 0,
+      "n_tup_ins": 0,
+      "n_tup_upd": 0,
+      "relallvisible": 0,
+      "relpages": 1,
+      "reltuples": 75.0,
+      "seq_scan": 1,
+      "seq_tup_read": 75,
+      "tidx_blks_hit": null,
+      "tidx_blks_read": null,
+      "toast_blks_hit": null,
+      "toast_blks_read": null,
+      "vacuum_count": 0,
+      "wasted_bytes": 0.0
+  }
+}]
