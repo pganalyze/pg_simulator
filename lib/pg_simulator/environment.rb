@@ -53,12 +53,27 @@ module PgSimulator
                            table['stats']['relallvisible'], relid]
         
         colstats.each do |position, stats|
-          stats['stanumbers2'] = stats['stanumbers2'].to_s.gsub('[', '{').gsub(']', '}')
-          stavalues1 = stats.delete('stavalues1')
-          @conn.exec_params("INSERT INTO pg_catalog.pg_statistic
-                                         (starelid, staattnum, %s, stavalues1)
-                                  VALUES (%s, array_in($26, 25, -1))" % [stats.keys.join(","), (1..(stats.size + 2)).map {|i| "$%d" % i }.join(",")],
-                            [relid, position] + stats.values + [stavalues1])
+          data = {'starelid' => relid, 'staattnum' => position}
+          data.merge!(stats)
+
+          keys = []; placeholders = []; values = []
+          data.each do |key, value|
+            placeholder = "$%d" % (placeholders.size + 1)
+            
+            if key[/^stanumbers/] && value
+              value = value.to_s.gsub('[', '{').gsub(']', '}')
+            end
+            if key[/^stavalues/]
+              placeholder = "array_in(%s, 25, -1)" % placeholder # FIXME: Not everything is text
+            end
+            
+            keys << key
+            placeholders << placeholder
+            values << value
+          end
+          
+          @conn.exec_params("INSERT INTO pg_catalog.pg_statistic (%s) VALUES (%s)" %
+                            [keys.join(","), placeholders.join(",")], values)
         end
       end
     end
