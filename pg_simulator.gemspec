@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
     lib/pg_simulator/environment.rb
   ]
   
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.0'
   
   s.add_runtime_dependency "json", '~> 1.8'
