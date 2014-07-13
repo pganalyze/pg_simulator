@@ -18,13 +18,13 @@ describe PgSimulator do
     load_sample("schema_migrations")
     plan = @env.explain("SELECT * FROM schema_migrations WHERE version = ((SELECT null::text)::text)")
     #pp plan
+    plan[0]["Plan"].delete("Startup Cost")
+    plan[0]["Plan"].delete("Total Cost")
     expect(plan).to eq [{"Plan"=>
      {"Node Type"=>"Seq Scan",
       "Relation Name"=>"schema_migrations",
       "Schema"=>"public",
       "Alias"=>"schema_migrations",
-      "Startup Cost"=>0.01,
-      "Total Cost"=>0.01, # FIXME: Actually 1.95
       "Plan Rows"=>1,
       "Plan Width"=>15,
       "Output"=>["version"],
@@ -44,6 +44,8 @@ describe PgSimulator do
     load_sample("schema_migrations")
     plan = @env.explain("SELECT * FROM schema_migrations WHERE version = ((SELECT null::text)::text)",
                         {enable_seqscan: "off"})
+    plan[0]["Plan"].delete("Startup Cost")
+    plan[0]["Plan"].delete("Total Cost")
     expect(plan).to eq [{"Plan"=>
      {"Node Type"=>"Index Only Scan",
       "Scan Direction"=>"Forward",
@@ -51,8 +53,6 @@ describe PgSimulator do
       "Relation Name"=>"schema_migrations",
       "Schema"=>"public",
       "Alias"=>"schema_migrations",
-      "Startup Cost"=>0.14, # FIXME: Actually 0.15
-      "Total Cost"=>4.15, # FIXME: Actually 8.17
       "Plan Rows"=>1,
       "Plan Width"=>15,
       "Output"=>["version"],
@@ -77,12 +77,12 @@ describe PgSimulator do
                                 AND calls > ((SELECT null::bigint)::bigint)
                           GROUP BY query_id HAVING COUNT(query_id) > ((SELECT null::int)::int)",
                         {enable_seqscan: "off"})
-    
+
+    plan[0]["Plan"].delete("Startup Cost")
+    plan[0]["Plan"].delete("Total Cost")
     expect(plan).to eq [{"Plan"=>
      {"Node Type"=>"Aggregate",
       "Strategy"=>"Hashed",
-      "Startup Cost"=>7.08, # FIXME: Actually 84920.01
-      "Total Cost"=>7.09, # FIXME: Actually 84920.53
       "Plan Rows"=>1, # FIXME: Actually 42
       "Plan Width"=>4,
       "Output"=>["query_id"],
