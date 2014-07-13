@@ -4,14 +4,12 @@ require 'json'
 require 'pp'
 
 def load_sample(file_basename)
-  connection = PG.connect(dbname: 'pganalyze')
+  connection = PG.connect(dbname: 'postgres')
   schema = JSON.parse(File.read(File.expand_path("../fixtures/files/#{file_basename}.json", File.dirname(__FILE__))))
   @env = PgSimulator::Environment.new(connection, schema)
 end
 
 describe PgSimulator do
-  before(:each) do
-  end
   after(:each) do
     @env.destroy if @env
   end
