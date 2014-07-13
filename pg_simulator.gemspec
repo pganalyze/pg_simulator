@@ -1,15 +1,16 @@
 $:.push File.expand_path("../lib", __FILE__)
+require 'pg_simulator/version'
 
 Gem::Specification.new do |s|
   s.name        = 'pg_simulator'
-  s.version     = '0.0.1'
+  s.version     = PgSimulator::VERSION
   
   s.summary     = 'PostgreSQL Schema Simulator'
   s.description = 'Load schema and statistics information into a database and run EXPLAIN on queries'
   s.author      = 'Lukas Fittl'
   s.email       = 'lukas@fittl.com'
-  s.license     = 'Proprietary'
-  s.homepage    = 'http://github.com/lfittl/pg_simulator'
+  s.license     = 'BSD-3-Clause'
+  s.homepage    = 'http://github.com/pganalyze/pg_simulator'
 
   s.files = %w[
     LICENSE
