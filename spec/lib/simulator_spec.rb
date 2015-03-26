@@ -13,7 +13,7 @@ describe PgSimulator do
   after(:each) do
     @env.destroy if @env
   end
-  
+
   it "should work for a basic simulation" do
     load_sample("schema_migrations")
     plan = @env.explain("SELECT * FROM schema_migrations WHERE version = ((SELECT null::text)::text)")
@@ -39,7 +39,7 @@ describe PgSimulator do
          "Plan Width"=>0,
          "Output"=>["NULL::text"]}]}}]
   end
-  
+
   it "should allow us to disable seqscan" do
     load_sample("schema_migrations")
     plan = @env.explain("SELECT * FROM schema_migrations WHERE version = ((SELECT null::text)::text)",
@@ -67,7 +67,7 @@ describe PgSimulator do
          "Plan Width"=>0,
          "Output"=>["NULL::text"]}]}}]
   end
-  
+
   it "should allow us to explain more complex queries" do
     load_sample("query_snapshot_hourlies")
     plan = @env.explain("SELECT query_id
@@ -87,6 +87,7 @@ describe PgSimulator do
       "Strategy"=>"Hashed",
       "Plan Rows"=>1, # FIXME: Actually 42
       "Plan Width"=>4,
+      "Group Key"=>["query_snapshot_hourlies.query_id"],
       "Output"=>["query_id"],
       "Filter"=>"(count(query_snapshot_hourlies.query_id) > $3)",
       "Plans"=>

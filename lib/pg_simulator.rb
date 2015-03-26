@@ -1,1 +1,7 @@
+require 'pg_query'
+require 'pg_query/explain'
+require 'pg_query/plan'
+require 'pg_query/rewrite'
+require 'pg_query/schema_proxy'
+require 'pg_query/simulator'
 require 'pg_simulator/environment'
